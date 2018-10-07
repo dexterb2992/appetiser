@@ -99,12 +99,20 @@
 
 					this.isLoading = false;
 				}).catch((err) => {
-					if (err.response.hasOwnProperty('data')) {
+					if (!err.response) {
 						this.notification = {
 							type: 'danger',
-							content: err.response.data.message,
+							content: `<p><strong>${err}</strong></p><code>Make sure to configure the API URL on /store/config.js</code>`,
 							show: true
 						};
+					} else {
+						if (err.response.hasOwnProperty('data')) {
+							this.notification = {
+								type: 'danger',
+								content: err.response.data.message,
+								show: true
+							};
+						}
 					}
 					this.isLoading = false;
 				});
