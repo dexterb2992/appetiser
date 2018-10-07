@@ -36,24 +36,40 @@
 </template>
 
 <script>
+    import Vue from 'vue';
+    
+    window.Event =  new class {
+        constructor() {
+            this.vue = new Vue();
+        }
+
+        fire(event, data = null) {
+            this.vue.$emit(event, data);
+        }
+
+        listen(event, callback) {
+            this.vue.$on(event, callback);
+        }
+    };
+
     export default {
         data() {
             return {
-                items: [{
-                        title: 'Home',
-                        icon: 'home',
-                        to: {
-                            name: 'index'
-                        }
-                    },
-                    {
-                        title: 'Register',
-                        icon: 'lightbulb',
-                        to: {
-                            name: 'register'
-                        }
+                items: [
+                {
+                    title: 'Home',
+                    icon: 'home',
+                    to: {
+                        name: 'index'
                     }
-                ]
+                },
+                {
+                    title: 'Register',
+                    icon: 'rocket',
+                    to: {
+                        name: 'register'
+                    }
+                }]
             }
         }
     }
